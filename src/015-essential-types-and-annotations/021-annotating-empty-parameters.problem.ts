@@ -2,7 +2,9 @@ import { Expect, Equal } from "@total-typescript/helpers";
 
 // CODE
 
-const concatTwoStrings = (a, b) => {
+// if we do not excpilitly say it's any typescript will throw an error
+
+const concatTwoStrings = (a: string, b: string) => {
   return [a, b].join(" ");
 };
 
