@@ -4,28 +4,46 @@ type User = {
   id: string;
 };
 
-type ApiResponse = [string, User[] | string];
+type ErrorApiResponse = ['error', string];
+type SuccessApiResponse = ['success', User[]];
 
-async function fetchData(): Promise<ApiResponse> {
+type ApiResponse = ErrorApiResponse | SuccessApiResponse;
+
+type ApiResponse1 = {
+  status: 'error',
+  value: string
+} | {
+  status: 'success',
+  value: User[]
+}
+
+async function fetchData(): Promise<ApiResponse1> {
   try {
     const response = await fetch("https://api.example.com/data");
     if (!response.ok) {
-      return [
-        "error",
+      return {
+        status: "error",
         // Imagine some improved error handling here
-        "An error occurred",
-      ];
+        value: "An error occurred",
+      };
     }
 
     const data = await response.json();
-    return ["success", data];
+    return {
+      status: "success",
+      value: data
+    }
   } catch (error) {
-    return ["error", "An error occurred"];
+    return {
+      status: "error",
+      // Imagine some improved error handling here
+      value: "An error occurred",
+    };
   }
 }
 
 async function exampleFunc() {
-  const [status, value] = await fetchData();
+  const { status, value } = await fetchData();
 
   if (status === "success") {
     console.log(value);

@@ -1,11 +1,17 @@
 import { Equal, Expect } from "@total-typescript/helpers";
 import { expect, it } from "vitest";
 
-type Shape = {
-  kind: string;
-  radius?: number;
-  sideLength?: number;
+type CircleShape = {
+  kind: 'circle';
+  radius: number;
 };
+
+type SquareShape = {
+  kind: 'square';
+  sideLength: number;
+};
+
+type Shape = CircleShape | SquareShape
 
 function calculateArea(shape: Shape) {
   if (shape.kind === "circle") {

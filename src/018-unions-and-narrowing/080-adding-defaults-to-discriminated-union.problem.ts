@@ -2,7 +2,7 @@ import { Equal, Expect } from "@total-typescript/helpers";
 import { expect, it } from "vitest";
 
 type Circle = {
-  kind: "circle";
+  kind?: "circle";
   radius: number;
 };
 
@@ -14,11 +14,12 @@ type Square = {
 type Shape = Circle | Square;
 
 function calculateArea(shape: Shape) {
-  if (shape.kind === "circle") {
+  if (shape.kind === "circle" || shape.kind === undefined) {
     return Math.PI * shape.radius * shape.radius;
-  } else {
+  } else if (shape.kind === 'square') {
     return shape.sideLength * shape.sideLength;
   }
+  throw new Error("Not defined shape");
 }
 
 it("Should calculate the area of a circle", () => {
