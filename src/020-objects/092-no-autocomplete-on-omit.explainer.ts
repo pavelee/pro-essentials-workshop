@@ -10,6 +10,10 @@ type UserWithoutPhoneNumber = Omit<User, "phoneNumber">;
 // But you CAN'T pick properties which don't exist
 type UserWithOnlyPhoneNumber = Pick<User, "phoneNumber">;
 
+
+type OmitStrict<T, K extends keyof T> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
+
+
 // More information:
 
 // The original discussion to add Omit: https://github.com/microsoft/TypeScript/issues/30455

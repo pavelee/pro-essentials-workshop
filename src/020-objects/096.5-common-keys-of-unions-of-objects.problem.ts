@@ -21,7 +21,10 @@ type Product = {
   imageId: string;
 };
 
-const getAvatarImage = (entity: unknown) => {
+type Union = User | Organisation | Product;
+type Entity = Union; //Required<Partial<Union>>;
+
+const getAvatarImage = (entity: Entity) => {
   {
     // Should not be able to access properties that are
     // not common to both types
